@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
+import Track from './components/Track';
+
 const CLIENT_ID = '6661528e201d41e599f2e053f3be1a4a';
 const REDIRECT_URI = 'http://localhost:3000/callback.html';
 
@@ -9,6 +11,8 @@ class App extends Component {
   state = {
     searchValue: '',
     access_token: localStorage.getItem('access_token') || null,
+    user: null,
+    recentlyPlayed: null,
   }
 
   async componentDidMount() {
@@ -19,11 +23,13 @@ class App extends Component {
       }
     }, false);
 
+    this.getRecentlyPlayed();
+
   }
 
   login = () => {
 
-    const URL = `https://accounts.spotify.com/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&scope=user-read-private&response_type=token`;
+    const URL = `https://accounts.spotify.com/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&scope=user-read-recently-played&response_type=token`;
 
     const width = 450;
     const height = 730;
@@ -53,6 +59,30 @@ class App extends Component {
 
   }
 
+  getMe = async () => {
+
+    const response = await axios.get('https://api.spotify.com/v1/me', {
+      headers: {
+        'Authorization': `Bearer ${this.state.access_token}`,
+      }
+    });
+
+    debugger;
+
+    this.setState({ user: response.data });
+  }
+
+  getRecentlyPlayed = async () => {
+
+    const response = await axios.get('https://api.spotify.com/v1/me/player/recently-played', {
+      headers: {
+        'Authorization': `Bearer ${this.state.access_token}`,
+      }
+    });
+
+    this.setState({ recentlyPlayed: response.data });
+  }
+
   render() {
     return (
       <div>
@@ -66,45 +96,13 @@ class App extends Component {
 
           <br />
 
-          <input
-            type="text"
-            value={this.state.searchValue}
-            onChange={e => this.setState({ searchValue: e.target.value })}
-          />
-          <button onClick={this.search}>search</button>
+          <h3>Recently played</h3>
 
-          <br />
-          <h3>Tracks</h3>
-          <ul>
-            {
-              this.state.searchResult && this.state.searchResult.tracks.items.map(track => (
-                <li>{track.name} - {track.artists[0].name}</li>
-              ))
-            }
-          </ul>
-
-          <br />
-          <h3>Albums</h3>
-          <ul>
-            {
-              this.state.searchResult && this.state.searchResult.albums.items.map(album => (
-                <li>{album.name} - {album.artists[0].name}</li>
-              ))
-            }
-          </ul>
-
-          <br />
-          <h3>Artists</h3>
-          <ul>
-            {
-              this.state.searchResult && this.state.searchResult.artists.items.map(artist => (
-                <li>
-                  {artist.name}
-                  <img src={artist.images[0].url} height="100" />
-                </li>
-              ))
-            }
-          </ul>
+          {
+            this.state.recentlyPlayed && this.state.recentlyPlayed.items.map(rPlayed => (
+              <Track {...rPlayed.track} />
+            ))
+          }
 
         </main>
       </div>
