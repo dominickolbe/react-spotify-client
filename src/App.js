@@ -85,26 +85,30 @@ class App extends Component {
 
   render() {
     return (
-      <div>
-        <header>
-          <h2>react-spotify-client</h2>
-        </header>
-        <main>
-          { !this.state.access_token &&
-            <button onClick={this.login}>login</button>
-          }
+      <div className="container">
+        <div className="row">
+          <div className="col-12">
+            <header>
+              <h1>React spotify client</h1>
+            </header>
+            <main>
+              { !this.state.access_token &&
+                <button onClick={this.login}>login</button>
+              }
 
-          <br />
+              <br />
 
-          <h3>Recently played</h3>
+              <h3>Recently played</h3>
 
-          {
-            this.state.recentlyPlayed && this.state.recentlyPlayed.items.map(rPlayed => (
-              <Track {...rPlayed.track} />
-            ))
-          }
+              {
+                this.state.recentlyPlayed && this.state.recentlyPlayed.items.map(rPlayed => (
+                  <Track {...rPlayed.track} />
+                ))
+              }
 
-        </main>
+            </main>
+          </div>
+        </div>
       </div>
     );
   }
