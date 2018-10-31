@@ -3,9 +3,6 @@ import axios from 'axios';
 
 import Track from './components/Track';
 
-const CLIENT_ID = '6661528e201d41e599f2e053f3be1a4a';
-const REDIRECT_URI = 'http://localhost:3000/callback.html';
-
 class App extends Component {
 
   state = {
@@ -27,22 +24,6 @@ class App extends Component {
 
   }
 
-  login = () => {
-
-    const URL = `https://accounts.spotify.com/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&scope=user-read-recently-played&response_type=token`;
-
-    const width = 450;
-    const height = 730;
-    const left = (window.screen.width / 2) - (width / 2);
-    const top = (window.screen.height / 2) - (height / 2);
-
-    window.open(URL,
-      'Spotify',
-      'menubar=no,location=no,resizable=no,scrollbars=no,status=no, width=' + width + ', height=' + height + ', top=' + top + ', left=' + left
-    );
-
-  }
-
   search = async () => {
 
     const response = await axios.get('https://api.spotify.com/v1/search', {
@@ -59,30 +40,6 @@ class App extends Component {
 
   }
 
-  getMe = async () => {
-
-    const response = await axios.get('https://api.spotify.com/v1/me', {
-      headers: {
-        'Authorization': `Bearer ${this.state.access_token}`,
-      }
-    });
-
-    debugger;
-
-    this.setState({ user: response.data });
-  }
-
-  getRecentlyPlayed = async () => {
-
-    const response = await axios.get('https://api.spotify.com/v1/me/player/recently-played', {
-      headers: {
-        'Authorization': `Bearer ${this.state.access_token}`,
-      }
-    });
-
-    this.setState({ recentlyPlayed: response.data });
-  }
-
   render() {
     return (
       <div className="container">
@@ -92,20 +49,12 @@ class App extends Component {
               <h1>React spotify client</h1>
             </header>
             <main>
-              { !this.state.access_token &&
-                <button onClick={this.login}>login</button>
-              }
-
-              <br />
-
               <h3>Recently played</h3>
-
               {
                 this.state.recentlyPlayed && this.state.recentlyPlayed.items.map(rPlayed => (
                   <Track {...rPlayed.track} />
                 ))
               }
-
             </main>
           </div>
         </div>
