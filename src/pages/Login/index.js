@@ -24,10 +24,16 @@ const SpotifyLoginButton = styled.div`
 `;
 
 export default class Login extends Component {
+
+  login = async () => {
+    const isLoggedIn = await SpotifyClient.login();
+    if (isLoggedIn) this.props.history.push('/profile');
+  }
+
   render() {
     return (
       <Container>
-        <SpotifyLoginButton onClick={SpotifyClient.openLoginPopup}>Login with Spotify</SpotifyLoginButton>
+        <SpotifyLoginButton onClick={this.login}>Login with Spotify</SpotifyLoginButton>
       </Container>
     );
   }

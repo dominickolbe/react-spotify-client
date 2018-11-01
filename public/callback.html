@@ -12,15 +12,8 @@
       });
 
       if (hash.access_token) {
-
         localStorage.setItem('access_token', hash.access_token);
         localStorage.setItem('expires_in', hash.expires_in || 0);
-
-        window.opener.postMessage({
-          type: 'access_token',
-          access_token: hash.access_token,
-          expires_in: hash.expires_in || 0
-        }, 'http://localhost:3000/');
         window.close();
       }
     }

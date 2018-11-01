@@ -1,17 +1,28 @@
 import axios from 'axios';
+import { reject } from 'rsvp';
 
 class SpotifyClient {
 
   CLIENT_ID = '6661528e201d41e599f2e053f3be1a4a';
-  REDIRECT_URI = 'http://localhost:3000/callback.html';
+  REDIRECT_URI = window.location.origin + '/callback.html';
 
   access_token = null;
 
   constructor() {
+    this.getToken();
+  }
+
+  clearToken = () => {
+    localStorage.removeItem('access_token');
+  }
+
+  getToken = () => {
     this.access_token = localStorage.getItem('access_token') || null;
   }
 
-  openLoginPopup = () => {
+  login = () => {
+    this.clearToken();
+
     const URL = `https://accounts.spotify.com/authorize?client_id=${this.CLIENT_ID}&redirect_uri=${encodeURIComponent(this.REDIRECT_URI)}&scope=user-read-recently-played&response_type=token`;
 
     const width = 450;
@@ -19,10 +30,26 @@ class SpotifyClient {
     const left = (window.screen.width / 2) - (width / 2);
     const top = (window.screen.height / 2) - (height / 2);
 
-    window.open(URL,
+    const loginWindow = window.open(URL,
       'Spotify',
       'menubar=no,location=no,resizable=no,scrollbars=no,status=no, width=' + width + ', height=' + height + ', top=' + top + ', left=' + left
     );
+
+    return new Promise((resolve, reject) => {
+      const timer = setInterval(async () => {
+        if (loginWindow.closed) {
+          clearInterval(timer);
+
+          this.getToken();
+
+          if (this.access_token) {
+            resolve(true);
+          } else {
+            resolve(false);
+          }
+        }
+      }, 500);
+    });
   }
 
   getUser = async () => {
