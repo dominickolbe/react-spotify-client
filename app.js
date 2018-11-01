@@ -6,7 +6,15 @@ var app = express();
 
 app.use(express.static(path.join(__dirname, 'build')));
 
-const port = process.env.PORT || '8080';
+app.get('/ping', function (req, res) {
+  return res.send('pong');
+});
+
+app.get('*', function (req, res) {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
+
+const port = process.env.PORT || '3002';
 app.set('port', port);
 
 const server = http.createServer(app);
