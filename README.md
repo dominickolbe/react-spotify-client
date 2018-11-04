@@ -1,5 +1,5 @@
 # react-spotify-client
-> source code of my private website
+> react application to test spotify API
 
 ## Demo
 [react-spotify-client.herokuapp.com](https://react-spotify-client.herokuapp.com)
