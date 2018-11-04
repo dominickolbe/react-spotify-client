@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { reject } from 'rsvp';
 
 class SpotifyClient {
 
@@ -35,20 +34,18 @@ class SpotifyClient {
       'menubar=no,location=no,resizable=no,scrollbars=no,status=no, width=' + width + ', height=' + height + ', top=' + top + ', left=' + left
     );
 
-    return new Promise((resolve, reject) => {
+    return new Promise(resolve => {
       const timer = setInterval(async () => {
         if (loginWindow.closed) {
           clearInterval(timer);
-
           this.getToken();
-
           if (this.access_token) {
             resolve(true);
           } else {
             resolve(false);
           }
         }
-      }, 500);
+      }, 1000);
     });
   }
 
