@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
 import SpotifyClient from '../../utils/SpotifyClient';
-
 import Track from '../../components/Track';
 
 export default class Profile extends Component {
@@ -14,11 +12,14 @@ export default class Profile extends Component {
   async componentDidMount() {
     const user = await SpotifyClient.getUser();
     const recentlyPlayed = await SpotifyClient.getRecentlyPlayed();
+    if (!user || !recentlyPlayed) {
+      this.props.history.push('/login');
+      return;
+    }
     this.setState({ user, recentlyPlayed })
   }
 
   render() {
-
     const { user, recentlyPlayed } = this.state;
 
     if (!user) {
@@ -29,13 +30,14 @@ export default class Profile extends Component {
       <div className="container">
         <div className="row">
           <div className="col-12">
-            <h1>Hello {this.state.user.display_name}</h1>
+            <h1>{this.state.user.display_name}</h1>
+            <h2>last played:</h2>
           </div>
         </div>
         <div className="row">
           <div className="col-12">
             { recentlyPlayed.items.map(played => (
-              <Track {...played.track} />
+              <Track key={played.played_at} {...played.track} />
             ))}
           </div>
         </div>

@@ -13,7 +13,6 @@
 
       if (hash.access_token) {
         localStorage.setItem('access_token', hash.access_token);
-        localStorage.setItem('expires_in', hash.expires_in || 0);
         window.close();
       }
     }

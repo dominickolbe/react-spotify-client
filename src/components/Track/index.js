@@ -10,6 +10,7 @@ const Row = styled.div`
   align-items: center;
   height: 45px;
   margin-bottom: 5px;
+  padding-right: 15px;
   width: 100%;
   > div {
     flex-grow: 1;
@@ -23,6 +24,13 @@ const Row = styled.div`
     img {
       height: 40px;
     }
+  }
+
+  .title, .artists, .album {
+    overflow: hidden;
+    padding-right: 15px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .duration {
@@ -45,31 +53,26 @@ const Row = styled.div`
       height: 100%;
     }
   }
-
-
 `;
 
 const Track = ({ album, artists, name, popularity, duration_ms }) => (
   <Row>
     <div className="artwork">
-      <img src={album.images[1].url} />
+      <img src={album.images[1].url} alt={name} />
     </div>
-    <div>{name}</div>
-    <div>
-      {
-        artists.map(artist => (
-          <div>{artist.name}</div>
-          ))
-        }
+    <div className="title">{name}</div>
+    <div className="artists">
+      { artists.map((artist, index) => (
+        <span key={index}>{artist.name}{artists.length > index+1 ? ', ' : null}</span>
+      ))}
     </div>
-    <div>{album.name}</div>
+    <div className="album">{album.name}</div>
     <div className="duration">{dayjs(duration_ms).format('mm:ss')}</div>
-
-    <div className="popularity">
+    {/* <div className="popularity">
       <div className="progress-container">
         <div className="progress" style={{ width: popularity + '%' }} />
       </div>
-    </div>
+    </div> */}
   </Row>
 );
 
