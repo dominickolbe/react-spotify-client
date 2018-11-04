@@ -22,15 +22,13 @@ export default class Profile extends Component {
   render() {
     const { user, recentlyPlayed } = this.state;
 
-    if (!user) {
-      return null;
-    }
+    if (!user) return null;
 
     return (
       <div className="container">
         <div className="row">
           <div className="col-12">
-            <h1>{this.state.user.display_name}</h1>
+            <h1>{user.display_name}</h1>
             <h2>last played:</h2>
           </div>
         </div>
