@@ -28,9 +28,9 @@ $ node app.js
 created and tested with:
 
 * macOS High Sierra ```v10.13.6```
-* Node.js ```v9.10.1```
-* yarn ```1.9.4```
-* npm ```5.6.0```
+* Node.js ```v10.15.3```
+* yarn ```1.15.2```
+* npm ```6.4.1```
 
 ## License
 MIT License
