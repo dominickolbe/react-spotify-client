@@ -27,12 +27,12 @@ $ node app.js
 ### Info
 created and tested with:
 
-* macOS High Sierra ```v10.13.6```
+* macOS High Sierra ```v10.14.5```
 * Node.js ```v10.15.3```
-* yarn ```1.15.2```
+* yarn ```1.16.0```
 * npm ```6.4.1```
 
 ## License
 MIT License
 
-Copyright (c) 2018 [Dominic Kolbe](https://dominickolbe.dk)
+Copyright (c) 2019 [Dominic Kolbe](https://dominickolbe.dk)
