@@ -13,7 +13,7 @@
     "dayjs": "^1.8.16",
     "express": "^4.17.1",
     "http": "^0.0.0",
-    "react": "^16.9.0",
+    "react": "^16.10.1",
     "react-dom": "^16.9.0",
     "react-router-dom": "^5.1.0",
     "react-scripts": "^3.1.2",
