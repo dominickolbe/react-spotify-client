@@ -9,11 +9,15 @@
   },
   "dependencies": {
     "axios": "^0.19.2",
-    "dayjs": "^1.8.27",
+    "dayjs": "^1.8.28",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
     "styled-components": "^4.4.1"
+  },
+  "devDependencies": {
+    "prettier": "^2.0.5",
+    "react-scripts": "^3.4.1"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -23,9 +27,5 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ],
-  "devDependencies": {
-    "prettier": "^2.0.5",
-    "react-scripts": "^3.4.1"
-  }
+  ]
 }
