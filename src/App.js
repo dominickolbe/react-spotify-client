@@ -1,10 +1,9 @@
-import React from 'react';
-import { Route, Switch, BrowserRouter } from 'react-router-dom';
+import React from "react";
+import { Route, Switch, BrowserRouter } from "react-router-dom";
+import Login from "./pages/Login";
+import Profile from "./pages/Profile";
 
-import Login from './pages/Login';
-import Profile from './pages/Profile';
-
-const Router = () => (
+export const App = () => (
   <BrowserRouter>
     <Switch>
       <Route path="/login" component={Login} exact />
@@ -13,5 +12,3 @@ const Router = () => (
     </Switch>
   </BrowserRouter>
 );
-
-export default Router;

@@ -1,22 +1,26 @@
 <html>
-<head>
-  <script>
-    function init() {
+  <head>
+    <script>
+      function init() {
+        var hash = {};
+        location.hash
+          .replace(/^#\/?/, "")
+          .split("&")
+          .forEach(function (kv) {
+            var spl = kv.indexOf("=");
+            if (spl != -1) {
+              hash[kv.substring(0, spl)] = decodeURIComponent(
+                kv.substring(spl + 1)
+              );
+            }
+          });
 
-      var hash = {};
-      location.hash.replace(/^#\/?/, '').split('&').forEach(function (kv) {
-        var spl = kv.indexOf('=');
-        if (spl != -1) {
-          hash[kv.substring(0, spl)] = decodeURIComponent(kv.substring(spl + 1));
+        if (hash.access_token) {
+          localStorage.setItem("access_token", hash.access_token);
+          window.close();
         }
-      });
-
-      if (hash.access_token) {
-        localStorage.setItem('access_token', hash.access_token);
-        window.close();
       }
-    }
-  </script>
-</head>
-<body onload="init()"></body>
+    </script>
+  </head>
+  <body onload="init()"></body>
 </html>

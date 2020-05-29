@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import styled from 'styled-components';
-import SpotifyClient from '../../utils/SpotifyClient';
+import React, { Component } from "react";
+import styled from "styled-components";
+import SpotifyClient from "../../utils/SpotifyClient";
 
 const Container = styled.div`
   align-items: center;
@@ -24,16 +24,17 @@ const SpotifyLoginButton = styled.div`
 `;
 
 export default class Login extends Component {
-
   login = async () => {
     const isLoggedIn = await SpotifyClient.login();
-    if (isLoggedIn) this.props.history.push('/profile');
-  }
+    if (isLoggedIn) return this.props.history.push("/profile");
+  };
 
   render() {
     return (
       <Container>
-        <SpotifyLoginButton onClick={this.login}>Login with Spotify</SpotifyLoginButton>
+        <SpotifyLoginButton onClick={this.login}>
+          Login with Spotify
+        </SpotifyLoginButton>
       </Container>
     );
   }

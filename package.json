@@ -1,7 +1,8 @@
 {
   "name": "react-spotify-client",
-  "version": "0.1.0",
-  "private": true,
+  "version": "1.0.0",
+  "author": "Dominic Kolbe <kolbedominic@gmail.com>",
+  "repository": "github.com:dominickolbe/react-spotify-client.git",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build"
@@ -9,12 +10,9 @@
   "dependencies": {
     "axios": "^0.19.2",
     "dayjs": "^1.8.27",
-    "express": "^4.17.1",
-    "http": "^0.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "^3.4.1",
     "styled-components": "^4.4.1"
   },
   "eslintConfig": {
@@ -25,5 +23,9 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "prettier": "^2.0.5",
+    "react-scripts": "^3.4.1"
+  }
 }
